@@ -47,7 +47,7 @@ let s:buffet_version = '2.65.2'
 "
 " With this version you can format the display of buffer list using a callback
 " function. Set the call back using the line in your vimrc
-"	
+"
 "	let g:Buffetbufferformatfunction = "s:callback"
 "
 " The call back function accept following parameters and must return a one
@@ -132,12 +132,12 @@ function! s:callback(bufno,tabno,windowno,srctab,srcwindow,isparent)
 			else
 				let l:modifiedflag = "     "
 			endif
-	if(a:tabno != '') 
+	if(a:tabno != '')
 		let l:tabno = "Tab-".a:tabno." "
 	else
 		let l:tabno = ''
 	endif
-	if(a:windowno != '') 
+	if(a:windowno != '')
 		let l:windowno = "Window-".a:windowno
 	else
 		let l:windowno = ''
@@ -145,7 +145,7 @@ function! s:callback(bufno,tabno,windowno,srctab,srcwindow,isparent)
 	if((a:windowno == a:srcwindow ) && (a:tabno == a:srctab))
 		let l:fc = '>'
 		let l:windowno .= ' <'
-	else 
+	else
 		let l:fc = ' '
 	endif
 	let l:bufmark = ''
@@ -160,7 +160,7 @@ function! s:callback(bufno,tabno,windowno,srctab,srcwindow,isparent)
 endfunction
 function! s:process_callback(bufno,tabno,windowno,srctab,srcwindow,isparent)
 	let l:return = s:callbackref(a:bufno,a:tabno,a:windowno,a:srctab,a:srcwindow,a:isparent)
-	if(empty(l:return)) 
+	if(empty(l:return))
 		return []
 	endif
 	let l:cn = 0
@@ -168,7 +168,7 @@ function! s:process_callback(bufno,tabno,windowno,srctab,srcwindow,isparent)
 	for l:i in l:return
 		let l:temp =  strwidth(l:i)
 		call add(l:cw,l:temp)
-		if(s:columnwidths[l:cn] < l:temp ) 
+		if(s:columnwidths[l:cn] < l:temp )
 			let s:columnwidths[l:cn] = l:temp
 		endif
 		let l:cn += 1
@@ -182,7 +182,7 @@ function! s:buffer_name_compare(buf1, buf2)
         return 1
     elseif(l:name1 < l:name2)
         return -1
-    else 
+    else
         return 0
     endif
 endfunction
@@ -288,7 +288,7 @@ function! s:close()
 		let s:lineonclose = line('.')
 		:bdelete buflisttempbuffer412393
 		echo ''
-		if(s:sourcewindow != -1) 
+		if(s:sourcewindow != -1)
 			exe s:sourcewindow. ' wincmd w'
 		endif
 	endif
@@ -361,7 +361,7 @@ function! s:toggle(gotolastbuffer)
 	let s:bufferlistlite = s:getallbuffers()
 	let s:sourcebuffer = bufnr('%')
 	let s:sourcewindow = winnr()
-	
+
 	let s:sourcetab = tabpagenr()
 	if(!buflisted(s:sourcebuffer))
 		let s:sourcewindow = -1
@@ -371,7 +371,7 @@ function! s:toggle(gotolastbuffer)
 		endif
 		if(s:sourcewindow == -1)
 			let l:tempwinnr = 1
-			while(!buflisted(winbufnr(l:tempwinnr))) 
+			while(!buflisted(winbufnr(l:tempwinnr)))
 				let l:tempwinnr+=1
 				if(winbufnr(l:tempwinnr) == -1)
 					let l:tempwinnr= -1
@@ -423,6 +423,7 @@ function! s:toggle(gotolastbuffer)
 		nnoremap <buffer> <silent> S :call <sid>split('h')<cr>
 		nnoremap <buffer> <silent> t :call <sid>openintab()<cr>
 		nnoremap <buffer> <silent> T :call <sid>openintab()<cr>
+		nnoremap <buffer> <silent> h :call <sid>split('h')<cr>
 		nnoremap <buffer> <silent> hh :call <sid>split('h')<cr>
 		nnoremap <buffer> <silent> HH :call <sid>split('h')<cr>
 		nnoremap <buffer> <silent> v :call <sid>split('v')<cr>
@@ -459,7 +460,7 @@ function! s:toggle_detail()
 	setlocal nomodifiable
 endfunction
 function! s:toggle_sort()
-    if(s:sortmode == 'r') 
+    if(s:sortmode == 'r')
         let s:sortmode = 'a'
     else
         let s:sortmode = 'r'
